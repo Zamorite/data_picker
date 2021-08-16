@@ -71,10 +71,10 @@ class DataPicker {
   }
 
   /// Displays the data picker
-  void showPicker(BuildContext context) {
+  Future showPicker(BuildContext context) async {
     // final ScrollController scrollCtrl = ScrollController();
 
-    showModalBottomSheet(
+    await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
