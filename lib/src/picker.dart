@@ -11,12 +11,14 @@ class DataPicker {
   final List<dynamic>? data;
   final Config? config;
   final PickerTheme? theme;
+  final bool sort;
   final PickerCallback callback;
 
   List<ListItem>? _items;
   Map<String, dynamic> _selectedItems = {};
 
   DataPicker({
+    this.sort = false,
     this.theme = const PickerTheme(),
     required this.data,
     required this.config,
@@ -41,9 +43,17 @@ class DataPicker {
         List<String> _searchFields = [];
         bool _selected = false;
 
-        _label = item[config?.label] ?? 'N/A';
-        _leading = item[config?.leading] ?? 'N/A';
-        _key = item[config?.key] ?? 'N/A';
+        Map<String, dynamic> _i = {};
+
+        try {
+          _i = item.toMap();
+        } catch (e) {
+          log('$e', name: 'Data Picker');
+        }
+
+        _label = _i[config?.label] ?? 'N/A';
+        _leading = _i[config?.leading] ?? 'N/A';
+        _key = _i[config?.key] ?? 'N/A';
 
         _searchFields = (config?.searchFields ?? [])
             .map(
@@ -82,6 +92,7 @@ class DataPicker {
         heightFactor: .8,
         child: DataListView(
           theme: theme!,
+          sort: this.sort,
           config: config!,
           items: _items ?? [],
           selectedItems: _selectedItems,

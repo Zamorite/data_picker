@@ -31,9 +31,31 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+class Sortable extends Comparable {
+  String name, abbreviation;
+
+  Sortable({
+    required this.name,
+    required this.abbreviation,
+  });
+
+  factory Sortable.fromMap(Map<String, dynamic> map) => Sortable(
+        name: map['name'],
+        abbreviation: map['abbreviation'],
+      );
+
+  Map<String, dynamic> toMap() => {
+        'name': name,
+        'abbreviation': abbreviation,
+      };
+
+  @override
+  int compareTo(other) => this.name.compareTo(other.name);
+}
+
 class _MyHomePageState extends State<MyHomePage> {
   DataPicker picker = DataPicker(
-    data: data,
+    data: data.map((e) => Sortable.fromMap(e)).toList(),
     config: Config(
       label: "name",
       leading: "abbreviation",
@@ -43,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
         log(item.toString(), name: 'Selected Item');
       },
     ),
+    sort: true,
     theme: PickerTheme(
       showLeading: false,
       labelStyle: TextStyle(
