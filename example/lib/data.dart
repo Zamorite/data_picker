@@ -1,4 +1,8 @@
-List<Map> data = [
+List<Map<String, dynamic>> data = [
+  {
+    "name": "American Samoa",
+    "abbreviation": "AS",
+  },
   {
     "name": "Alabama",
     "abbreviation": "AL",
@@ -6,10 +10,6 @@ List<Map> data = [
   {
     "name": "Alaska",
     "abbreviation": "AK",
-  },
-  {
-    "name": "American Samoa",
-    "abbreviation": "AS",
   },
   {
     "name": "Arizona",

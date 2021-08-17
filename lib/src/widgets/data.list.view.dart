@@ -6,12 +6,14 @@ import 'package:flutter/material.dart';
 class DataListView extends StatefulWidget {
   final List<ListItem> items;
   final Config config;
+  final bool sort;
   final PickerTheme theme;
   final Function(ListItem) onSelect;
   final Map<String, dynamic> selectedItems;
 
   const DataListView({
     Key? key,
+    this.sort = false,
     required this.items,
     required this.theme,
     required this.config,
@@ -52,6 +54,13 @@ class _DataListViewState extends State<DataListView> implements ChangeNotifier {
         return retain;
       },
     ).toList();
+
+    if (filteredItems.value.isNotEmpty &&
+        widget.sort &&
+        filteredItems.value.first.value is Comparable) {
+      filteredItems.value.sort();
+    }
+
     filteredItems.notifyListeners();
   }
 

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class ListItem {
+class ListItem extends Comparable {
   ListItem({
     this.key,
     this.leading,
@@ -66,6 +66,9 @@ class ListItem {
 
   @override
   String toString() => label ?? 'null';
+
+  @override
+  int compareTo(other) => value.compareTo(other.value);
 }
 
 class ValueClass {
